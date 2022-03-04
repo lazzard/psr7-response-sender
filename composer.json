@@ -1,0 +1,44 @@
+{
+    "name": "lazzard/psr7-response-sender",
+    "description": "Simple PSR-7 compatible response sender",
+    "type": "library",
+    "keywords": [
+        "psr-7",
+        "psr7-response",
+        "sender"
+    ],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "El Amrani Chakir",
+            "email": "contact@amranich.dev",
+            "homepage": "https://amranich.dev"
+        },
+        {
+            "name": "Lazzard Contributors",
+            "homepage": "https://github.com/orgs/lazzard/people"
+        }
+    ],
+    "require": {
+        "php": "^7.2 || ^8.0",
+        "psr/http-message": "^1.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^8",
+        "guzzlehttp/psr7": "^2.1",
+        "ext-xdebug": "*",
+        "ext-json": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "Lazzard\\Psr7ResponseSender\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Lazzard\\Psr7ResponseSender\\Tests\\Unit\\": "tests/Unit",
+            "Lazzard\\Psr7ResponseSender\\Tests\\Integration\\": "tests/Integration"
+        }
+    },
+    "minimum-stability": "stable"
+}
