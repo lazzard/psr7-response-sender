@@ -20,34 +20,35 @@ use Psr\Http\Message\ResponseInterface;
  */
 class Sender
 {
-    /** @var ResponseInterface */
-    protected $response;
 
     public function __invoke(ResponseInterface $response): void
     {
-        $this->response = $response;
+        $this->send($response);
+    }
 
+    public function send(ResponseInterface $response): void
+    {
         if (headers_sent()) {
-            $this->sendBody();
+            $this->sendBody($response);
             return;
         }
 
-        $this->sendStatusLine()
-            ->sendHeaders()
-            ->sendBody();
+        $this->sendStatusLine($response)
+            ->sendHeaders($response)
+            ->sendBody($response);
     }
 
     /**
      * Send the HTTP status line contained the HTTP protocol, the status code, and the reason
      * phrase associated with the status code.
      */
-    protected function sendStatusLine(): self
+    protected function sendStatusLine(ResponseInterface $response): self
     {
         header(sprintf(
             "HTTP/%s %s %s",
-            $this->response->getProtocolVersion(),
-            $this->response->getStatusCode(),
-            $this->response->getReasonPhrase()
+            $response->getProtocolVersion(),
+            $response->getStatusCode(),
+            $response->getReasonPhrase()
         ), true);
 
         return $this;
@@ -56,9 +57,9 @@ class Sender
     /**
      * Send the response headers.
      */
-    protected function sendHeaders(): self
+    protected function sendHeaders(ResponseInterface $response): self
     {
-        $headers = $this->response->getHeaders();
+        $headers = $response->getHeaders();
 
         if (empty($headers)) {
             return $this;
@@ -76,9 +77,9 @@ class Sender
     /**
      * Send the response body content.
      */
-    protected function sendBody(): self
+    protected function sendBody(ResponseInterface $response): self
     {
-        $stream = $this->response->getBody();
+        $stream = $response->getBody();
 
         if (!$stream->isReadable()) {
             return $this;

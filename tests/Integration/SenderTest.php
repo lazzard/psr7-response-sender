@@ -29,7 +29,7 @@ class SenderTest extends TestCase
         ], json_encode(['message' => 'hello world!']), '1.1', 'OK');
 
         $sender = new Sender;
-        $sender($response);
+        $sender->send($response);
 
         $this->expectOutputString('{"message":"hello world!"}');
         $this->assertSame(200, http_response_code());

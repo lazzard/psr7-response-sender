@@ -63,10 +63,12 @@ class SenderTest extends TestCase
         $this->expectOutputString("Hello world!");
 
         $headers_sent_func = $this->getFunctionMock('Lazzard\Psr7ResponseSender', 'headers_sent');
-        $headers_sent_func->expects($this->any())->willReturn(false);
+        $headers_sent_func->expects($this->any())
+            ->willReturn(false);
 
         $header_func = $this->getFunctionMock('Lazzard\Psr7ResponseSender', 'header');
-        $header_func->expects($this->exactly(4))->withConsecutive(
+        $header_func->expects($this->exactly(4))
+            ->withConsecutive(
             ['HTTP/1.1 200 OK', true],
             ['Content-type: application/json', false],
             ['X-custom-header: value1', false],
@@ -74,7 +76,7 @@ class SenderTest extends TestCase
         );
 
         $sender = new Sender;
-        $sender($response);
+        $sender->send($response);
     }
 
     public function test_send_headers_already_sent(): void
@@ -91,10 +93,11 @@ class SenderTest extends TestCase
         $this->expectOutputString("Hello world!");
 
         $headers_sent_func = $this->getFunctionMock('Lazzard\Psr7ResponseSender', 'headers_sent');
-        $headers_sent_func->expects($this->any())->willReturn(true);
+        $headers_sent_func->expects($this->any())
+            ->willReturn(true);
 
         $sender = new Sender;
-        $sender($response);
+        $sender->send($response);
     }
 
     protected function getMockedStream(): StreamInterface
