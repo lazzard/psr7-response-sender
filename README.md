@@ -2,7 +2,7 @@
 [![PHP version](https://img.shields.io/packagist/php-v/lazzard/psr7-response-sender)](https://packagist.org/packages/lazzard/psr7-response-sende)
 [![tests](https://github.com/lazzard/psr7-response-sender/actions/workflows/tests.yml/badge.svg)](https://github.com/lazzard/ftp-bridge/actions/workflows/tests.yml)
 [![codecov](https://codecov.io/gh/lazzard/psr7-response-sender/branch/main/graph/badge.svg?token=Q5TSCW01B8)](https://codecov.io/gh/lazzard/psr7-response-sender)
-![License](https://img.shields.io/packagist/l/lazzard/php-ftp-client?style=flat-square&color=red)
+![License](https://img.shields.io/packagist/l/lazzard/php-ftp-client)
 
 # Lazzard/Psr7ResponseSender
 
@@ -20,6 +20,9 @@ use Lazzard\Psr7ResponseSender\Sender;
 
 $response = new Response;
 $sender = new Sender;
+
+$sender->send($response);
+// OR
 $sender($response);
 ```
 
